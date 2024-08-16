@@ -3,8 +3,21 @@
     "name": "Braille Extension",
     "description": "Displays webpages as braille.",
     "version": "1.0",
+    "permissions": [
+      "storage",
+      "activeTab"
+    ],
     "action": {
       "default_popup": "popup.html",
-      "default_icon": "extension_icon.png"
+      "default_icon": "res/extension_icon.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "background": {
+      "service_worker": "background.js"
     }
   }
