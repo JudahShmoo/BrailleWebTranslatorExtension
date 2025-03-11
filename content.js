@@ -209,8 +209,7 @@ function braillizeWord(word) {
 
     let braille = "";
 
-    let allCaps = word.split('').every((char) => char == char.toUpperCase());
-    if (allCaps) {
+    if (isUpperAlpha(word)) {
         braille += String.fromCodePoint(0x2820);
         braille += String.fromCodePoint(0x2820);
         word = word.toLowerCase();
