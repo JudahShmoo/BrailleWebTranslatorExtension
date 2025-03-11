@@ -1,6 +1,5 @@
 
 const brailleMap = {
-    // ' ': '⠀​',
     '!':   String.fromCodePoint(0x2816),
     '"':   String.fromCodePoint(0x2808)+
            String.fromCodePoint(0x2826),
@@ -197,10 +196,10 @@ function braillize(text) {
 }
 
 function braillizeLine(line) {
+	if (line.trim().length == 0) return line;
     let words = line.split(' ');
     let braillizedWords = words.map((word) => braillizeWord(word));
-    // return braillizedWords.join(brailleMap[' ']);
-    return braillizedWords.join(' ');
+    return braillizedWords.join('⠀ ');
 }
 
 function braillizeWord(word) {
