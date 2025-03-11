@@ -1,381 +1,276 @@
-// let indexes = [0];
-// while (indexes.length > 0) {
-//     let index = indexes[indexes.length - 1];
 
-    
-// }
+const brailleMap = {
+    // ' ': '⠀​',
+    '!':   String.fromCodePoint(0x2816),
+    '"':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2826),
+    '#':   String.fromCodePoint(0x283c),
+    '$':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2832),
+    '%':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2812)+
+           String.fromCodePoint(0x280f),
+    '&':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x282f),
+    "'":   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2804),
+    '(':   String.fromCodePoint(0x2810)+
+           String.fromCodePoint(0x2823),
+    ')':   String.fromCodePoint(0x2810)+
+           String.fromCodePoint(0x281c),
+    '*':   String.fromCodePoint(0x2810)+
+           String.fromCodePoint(0x2814),
+    '+':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x282c),
+    ',':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2802),
+    '-':   String.fromCodePoint(0x2824),
+    '.':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2832),
+    '/':   String.fromCodePoint(0x2838)+
+           String.fromCodePoint(0x280c),
+    '0':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x281a),
+    '1':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2801),
+    '2':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2803),
+    '3':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2809),
+    '4':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2819),
+    '5':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2811),
+    '6':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x280b),
+    '7':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x281b),
+    '8':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x2813),
+    '9':   String.fromCodePoint(0x283c)+
+           String.fromCodePoint(0x280a),
+    ':':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2812),
+    ';':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2806),
+    '<':   String.fromCodePoint(0x2802)+
+           String.fromCodePoint(0x2805),
+    '=':   String.fromCodePoint(0x2828)+
+           String.fromCodePoint(0x2805),
+    '>':   String.fromCodePoint(0x2828)+
+           String.fromCodePoint(0x2802),
+    '?':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2826),
+    '@':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2801),
+    'A':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2801),
+    'B':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2803),
+    'C':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2809),
+    'D':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2819),
+    'E':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2811),
+    'F':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x280b),
+    'G':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x281b),
+    'H':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2813),
+    'I':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x280a),
+    'J':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x281a),
+    'K':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2805),
+    'L':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2807),
+    'M':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x280d),
+    'N':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x281d),
+    'O':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2815),
+    'P':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x280f),
+    'Q':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x281f),
+    'R':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2817),
+    'S':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x280e),
+    'T':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x281e),
+    'U':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2825),
+    'V':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2827),
+    'W':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x283a),
+    'X':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x282d),
+    'Y':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x283d),
+    'Z':   String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2835),
+    '[':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2820)+
+           String.fromCodePoint(0x2836),
+    '\\':  String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2833),
+    ']':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2836)+
+           String.fromCodePoint(0x2820),
+    '^':   String.fromCodePoint(0x2838)+
+           String.fromCodePoint(0x2823),
+    '_':   String.fromCodePoint(0x2838),
+    '`':   String.fromCodePoint(0x2808),
+    'a':   String.fromCodePoint(0x2801),
+    'b':   String.fromCodePoint(0x2803),
+    'c':   String.fromCodePoint(0x2809),
+    'd':   String.fromCodePoint(0x2819),
+    'e':   String.fromCodePoint(0x2811),
+    'f':   String.fromCodePoint(0x280b),
+    'g':   String.fromCodePoint(0x281b),
+    'h':   String.fromCodePoint(0x2813),
+    'i':   String.fromCodePoint(0x280a),
+    'j':   String.fromCodePoint(0x281a),
+    'k':   String.fromCodePoint(0x2805),
+    'l':   String.fromCodePoint(0x2807),
+    'm':   String.fromCodePoint(0x280d),
+    'n':   String.fromCodePoint(0x281d),
+    'o':   String.fromCodePoint(0x2815),
+    'p':   String.fromCodePoint(0x280f),
+    'q':   String.fromCodePoint(0x281f),
+    'r':   String.fromCodePoint(0x2817),
+    's':   String.fromCodePoint(0x280e),
+    't':   String.fromCodePoint(0x281e),
+    'u':   String.fromCodePoint(0x2825),
+    'v':   String.fromCodePoint(0x2827),
+    'w':   String.fromCodePoint(0x283a),
+    'x':   String.fromCodePoint(0x282d),
+    'y':   String.fromCodePoint(0x283d),
+    'z':   String.fromCodePoint(0x2835),
+    '{':   String.fromCodePoint(0x2838)+
+           String.fromCodePoint(0x2823),
+    '|':   String.fromCodePoint(0x2838)+
+           String.fromCodePoint(0x2833),
+    '}':   String.fromCodePoint(0x2838)+
+           String.fromCodePoint(0x281c),
+    '~':   String.fromCodePoint(0x2808)+
+           String.fromCodePoint(0x2831),
+    "gg":  String.fromCodePoint(0x2836),
+    "st":  String.fromCodePoint(0x280c),
+    "ch":  String.fromCodePoint(0x2821),
+    "gh":  String.fromCodePoint(0x2823),
+    "sh":  String.fromCodePoint(0x2829),
+    "th":  String.fromCodePoint(0x2839),
+    "wh":  String.fromCodePoint(0x2831),
+    "ed":  String.fromCodePoint(0x282b),
+    "er":  String.fromCodePoint(0x283b),
+    "ou":  String.fromCodePoint(0x2833),
+    "ow":  String.fromCodePoint(0x282a),
+    "en":  String.fromCodePoint(0x2822),
+    "ing": String.fromCodePoint(0x282c),
+    "ar":  String.fromCodePoint(0x281c),
+    "in":  String.fromCodePoint(0x2814),
+    "and": String.fromCodePoint(0x282f),
+    "for": String.fromCodePoint(0x283f),
+    "of":  String.fromCodePoint(0x2837),
+    "the": String.fromCodePoint(0x282e),
+    "with":String.fromCodePoint(0x283e),
+    "dis": String.fromCodePoint(0x2832),
+    "ff":  String.fromCodePoint(0x2816),
+    "ea":  String.fromCodePoint(0x2802),
+    "con": String.fromCodePoint(0x2812),
+    "cc":  String.fromCodePoint(0x2812),
+    "bb":  String.fromCodePoint(0x2806),
+    "be":  String.fromCodePoint(0x2806),
+};
 
-chrome.runtime.sendMessage({ action: 'getToggleState' }, (toggleState) => {
-    if (toggleState) {
-        console.log("Braillizing");
-        document.querySelectorAll("p").forEach((p) => {
-            let text = p.innerText;
-            let braille = braillize(text);
-            p.innerHTML = braille;
-        });
-    }
-});
+function braillize(text) {
+    let lines = text.split('\n');
+    let braillizedLines = lines.map((line) => braillizeLine(line));
+    return braillizedLines.join('\n');
+}
 
-function braillize(string) {
+function braillizeLine(line) {
+    let words = line.split(' ');
+    let braillizedWords = words.map((word) => braillizeWord(word));
+    // return braillizedWords.join(brailleMap[' ']);
+    return braillizedWords.join(' ');
+}
+
+function braillizeWord(word) {
+    if (word.length == 0) return "";
+    if (word.length == 1) return braillizeChar(word);
+
     let braille = "";
-    for (let i = 0; i < string.length; i++) {
-        let char = string[i];
 
-        switch (char) {
-            case " ":
-                braille += String.fromCodePoint(0x2800);
-                break;
-            case "!":
-                braille += String.fromCodePoint(0x2816);
-                break;
-            case "\"":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2826);
-                break;
-            case "#":
-                braille += String.fromCodePoint(0x283c);
-                break;
-            case "$":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2832);
-                break;
-            case "%":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2812);
-                braille += String.fromCodePoint(0x280f);
-                break;
-            case "&":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x282f);
-                break;
-            case "'":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2804);
-                break;
-            case "(":
-            case ")":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2836);
-                break;
-            case "*":
-                braille += String.fromCodePoint(0x2810);
-                braille += String.fromCodePoint(0x2814);
-                break;
-            case "+":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x282c);
-                break;
-            case ",":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2802);
-                break;
-            case "-":
-                braille += String.fromCodePoint(0x2824);
-                break;
-            case ".":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2832);
-                break;
-            case "/":
-                braille += String.fromCodePoint(0x2838);
-                braille += String.fromCodePoint(0x280c);
-                break;
-            case "0":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x281a);
-                break;
-            case "1":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2801);
-                break;
-            case "2":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2803);
-                break;
-            case "3":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2809);
-                break;
-            case "4":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2819);
-                break;
-            case "5":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2811);
-                break;
-            case "6":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x280b);
-                break;
-            case "7":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x281b);
-                break;
-            case "8":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x2813);
-                break;
-            case "9":
-                braille += String.fromCodePoint(0x283c);
-                braille += String.fromCodePoint(0x280a);
-                break;
-            case ":":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2812);
-                break;
-            case ";":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2806);
-                break;
-            case "<":
-                braille += String.fromCodePoint(0x2802);
-                braille += String.fromCodePoint(0x2805);
-                break;
-            case "=":
-                braille += String.fromCodePoint(0x2828);
-                braille += String.fromCodePoint(0x2805);
-                break;
-            case ">":
-                braille += String.fromCodePoint(0x2828);
-                braille += String.fromCodePoint(0x2802);
-                break;
-            case "?":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2826);
-                break;
-            case "@":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2801);
-                break;
-            case "A":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2801);
-                break;
-            case "B":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2803);
-                break;
-            case "C":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2809);
-                break;
-            case "D":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2819);
-                break;
-            case "E":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2811);
-                break;
-            case "F":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x280b);
-                break;
-            case "G":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x281b);
-                break;
-            case "H":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2813);
-                break;
-            case "I":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x280a);
-                break;
-            case "J":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x281a);
-                break;
-            case "K":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2805);
-                break;
-            case "L":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2807);
-                break;
-            case "M":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x280d);
-                break;
-            case "N":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x281d);
-                break;
-            case "O":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2815);
-                break;
-            case "P":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x280f);
-                break;
-            case "Q":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x281f);
-                break;
-            case "R":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2817);
-                break;
-            case "S":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x280e);
-                break;
-            case "T":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x281e);
-                break;
-            case "U":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2825);
-                break;
-            case "V":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2827);
-                break;
-            case "W":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x283a);
-                break;
-            case "X":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x282d);
-                break;
-            case "Y":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x283d);
-                break;
-            case "Z":
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2835);
-                break;
-            case "[":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2820);
-                braille += String.fromCodePoint(0x2836);
-                break;
-            case "\\":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2833);
-                break;
-            case "[":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2836);
-                braille += String.fromCodePoint(0x2820);
-                break;
-            case "^":
-                braille += String.fromCodePoint(0x2838);
-                braille += String.fromCodePoint(0x2823);
-                break;
-            case "_":
-                braille += String.fromCodePoint(0x2838);
-                break;
-            case "`":
-                braille += String.fromCodePoint(0x2808);
-                break;
-            case "a":
-                braille += String.fromCodePoint(0x2801);
-                break;
-            case "b":
-                braille += String.fromCodePoint(0x2803);
-                break;
-            case "c":
-                braille += String.fromCodePoint(0x2809);
-                break;
-            case "d":
-                braille += String.fromCodePoint(0x2819);
-                break;
-            case "e":
-                braille += String.fromCodePoint(0x2811);
-                break;
-            case "f":
-                braille += String.fromCodePoint(0x280b);
-                break;
-            case "g":
-                braille += String.fromCodePoint(0x281b);
-                break;
-            case "h":
-                braille += String.fromCodePoint(0x2813);
-                break;
-            case "i":
-                braille += String.fromCodePoint(0x280a);
-                break;
-            case "j":
-                braille += String.fromCodePoint(0x281a);
-                break;
-            case "k":
-                braille += String.fromCodePoint(0x2805);
-                break;
-            case "l":
-                braille += String.fromCodePoint(0x2807);
-                break;
-            case "m":
-                braille += String.fromCodePoint(0x280d);
-                break;
-            case "n":
-                braille += String.fromCodePoint(0x281d);
-                break;
-            case "o":
-                braille += String.fromCodePoint(0x2815);
-                break;
-            case "p":
-                braille += String.fromCodePoint(0x280f);
-                break;
-            case "q":
-                braille += String.fromCodePoint(0x281f);
-                break;
-            case "r":
-                braille += String.fromCodePoint(0x2817);
-                break;
-            case "s":
-                braille += String.fromCodePoint(0x280e);
-                break;
-            case "t":
-                braille += String.fromCodePoint(0x281e);
-                break;
-            case "u":
-                braille += String.fromCodePoint(0x2825);
-                break;
-            case "v":
-                braille += String.fromCodePoint(0x2827);
-                break;
-            case "w":
-                braille += String.fromCodePoint(0x283a);
-                break;
-            case "x":
-                braille += String.fromCodePoint(0x282d);
-                break;
-            case "y":
-                braille += String.fromCodePoint(0x283d);
-                break;
-            case "z":
-                braille += String.fromCodePoint(0x2835);
-                break;
-            case "{":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2830);
-                braille += String.fromCodePoint(0x2836);
-                break;
-            case "|":
-                braille += String.fromCodePoint(0x2838);
-                braille += String.fromCodePoint(0x2833);
-                break;
-            case "}":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2836);
-                braille += String.fromCodePoint(0x2830);
-                break;
-            case "~":
-                braille += String.fromCodePoint(0x2808);
-                braille += String.fromCodePoint(0x2831);
-                break;
-            default:
-                braille += char;
-                break;
+    let allCaps = word.split('').every((char) => char == char.toUpperCase());
+    if (allCaps) {
+        braille += String.fromCodePoint(0x2820);
+        braille += String.fromCodePoint(0x2820);
+        word = word.toLowerCase();
+    }
+
+    while (word.length > 0) {
+        if (isUpperAlpha(word)) {
+            braille += String.fromCodePoint(0x2820);
+            word = word.toLowerCase();
+        }
+
+        let possibleCombo = word.slice(0, 3);
+        while (true) {
+            if (brailleMap[possibleCombo]) {
+                braille += brailleMap[possibleCombo];
+                word = word.slice(possibleCombo.length);
+                break;
+            }
+            else if (possibleCombo.length <= 0) {
+                braille += word[0];
+                word = word.slice(1);
+                break;
+            }
+            possibleCombo = possibleCombo.slice(0, -1);
         }
     }
     return braille;
 }
+
+function braillizeChar(char) {
+    let brailleString = "";
+    if (isUpperAlpha(char)) {
+        brailleString += String.fromCodePoint(0x2820);
+        char = char.toLowerCase();
+    }
+    let brailleChar = brailleMap[char];
+    if (brailleChar!=undefined) brailleString += brailleChar;
+    else brailleString += char;
+    return brailleString;
+}
+
+function isUpperAlpha(string) {
+    return string == string.toUpperCase() && string != string.toLowerCase();
+}
+
+function braillizeNode(node) {
+    if (node.nodeType == Node.TEXT_NODE) {
+        let text = node.nodeValue;
+        let braille = braillize(text);
+        node.nodeValue = braille;
+    }
+    else if (node.nodeType == Node.ELEMENT_NODE) {
+        if (node.tagName == 'SCRIPT' || node.tagName == 'STYLE') return;
+        node.childNodes.forEach((child) => braillizeNode(child));
+    }
+}
+
+chrome.runtime.sendMessage({ action: 'getToggleState' }, (toggleState) => {
+    if (toggleState) {
+        console.log("Braillizing");
+        braillizeNode(document.body);
+    }
+});
