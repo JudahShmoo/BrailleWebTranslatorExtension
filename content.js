@@ -1,192 +1,125 @@
-
 const brailleMap = {
-    '!':   String.fromCodePoint(0x2816),
-    '"':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2826),
-    '#':   String.fromCodePoint(0x283c),
-    '$':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2832),
-    '%':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2812)+
-           String.fromCodePoint(0x280f),
-    '&':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x282f),
-    "'":   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2804),
-    '(':   String.fromCodePoint(0x2810)+
-           String.fromCodePoint(0x2823),
-    ')':   String.fromCodePoint(0x2810)+
-           String.fromCodePoint(0x281c),
-    '*':   String.fromCodePoint(0x2810)+
-           String.fromCodePoint(0x2814),
-    '+':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x282c),
-    ',':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2802),
-    '-':   String.fromCodePoint(0x2824),
-    '.':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2832),
-    '/':   String.fromCodePoint(0x2838)+
-           String.fromCodePoint(0x280c),
-    '0':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x281a),
-    '1':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2801),
-    '2':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2803),
-    '3':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2809),
-    '4':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2819),
-    '5':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2811),
-    '6':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x280b),
-    '7':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x281b),
-    '8':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x2813),
-    '9':   String.fromCodePoint(0x283c)+
-           String.fromCodePoint(0x280a),
-    ':':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2812),
-    ';':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2806),
-    '<':   String.fromCodePoint(0x2802)+
-           String.fromCodePoint(0x2805),
-    '=':   String.fromCodePoint(0x2828)+
-           String.fromCodePoint(0x2805),
-    '>':   String.fromCodePoint(0x2828)+
-           String.fromCodePoint(0x2802),
-    '?':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2826),
-    '@':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2801),
-    'A':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2801),
-    'B':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2803),
-    'C':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2809),
-    'D':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2819),
-    'E':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2811),
-    'F':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x280b),
-    'G':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x281b),
-    'H':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2813),
-    'I':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x280a),
-    'J':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x281a),
-    'K':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2805),
-    'L':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2807),
-    'M':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x280d),
-    'N':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x281d),
-    'O':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2815),
-    'P':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x280f),
-    'Q':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x281f),
-    'R':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2817),
-    'S':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x280e),
-    'T':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x281e),
-    'U':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2825),
-    'V':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2827),
-    'W':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x283a),
-    'X':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x282d),
-    'Y':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x283d),
-    'Z':   String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2835),
-    '[':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2820)+
-           String.fromCodePoint(0x2836),
-    '\\':  String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2833),
-    ']':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2836)+
-           String.fromCodePoint(0x2820),
-    '^':   String.fromCodePoint(0x2838)+
-           String.fromCodePoint(0x2823),
-    '_':   String.fromCodePoint(0x2838),
-    '`':   String.fromCodePoint(0x2808),
-    'a':   String.fromCodePoint(0x2801),
-    'b':   String.fromCodePoint(0x2803),
-    'c':   String.fromCodePoint(0x2809),
-    'd':   String.fromCodePoint(0x2819),
-    'e':   String.fromCodePoint(0x2811),
-    'f':   String.fromCodePoint(0x280b),
-    'g':   String.fromCodePoint(0x281b),
-    'h':   String.fromCodePoint(0x2813),
-    'i':   String.fromCodePoint(0x280a),
-    'j':   String.fromCodePoint(0x281a),
-    'k':   String.fromCodePoint(0x2805),
-    'l':   String.fromCodePoint(0x2807),
-    'm':   String.fromCodePoint(0x280d),
-    'n':   String.fromCodePoint(0x281d),
-    'o':   String.fromCodePoint(0x2815),
-    'p':   String.fromCodePoint(0x280f),
-    'q':   String.fromCodePoint(0x281f),
-    'r':   String.fromCodePoint(0x2817),
-    's':   String.fromCodePoint(0x280e),
-    't':   String.fromCodePoint(0x281e),
-    'u':   String.fromCodePoint(0x2825),
-    'v':   String.fromCodePoint(0x2827),
-    'w':   String.fromCodePoint(0x283a),
-    'x':   String.fromCodePoint(0x282d),
-    'y':   String.fromCodePoint(0x283d),
-    'z':   String.fromCodePoint(0x2835),
-    '{':   String.fromCodePoint(0x2838)+
-           String.fromCodePoint(0x2823),
-    '|':   String.fromCodePoint(0x2838)+
-           String.fromCodePoint(0x2833),
-    '}':   String.fromCodePoint(0x2838)+
-           String.fromCodePoint(0x281c),
-    '~':   String.fromCodePoint(0x2808)+
-           String.fromCodePoint(0x2831),
-    "gg":  String.fromCodePoint(0x2836),
-    "st":  String.fromCodePoint(0x280c),
-    "ch":  String.fromCodePoint(0x2821),
-    "gh":  String.fromCodePoint(0x2823),
-    "sh":  String.fromCodePoint(0x2829),
-    "th":  String.fromCodePoint(0x2839),
-    "wh":  String.fromCodePoint(0x2831),
-    "ed":  String.fromCodePoint(0x282b),
-    "er":  String.fromCodePoint(0x283b),
-    "ou":  String.fromCodePoint(0x2833),
-    "ow":  String.fromCodePoint(0x282a),
-    "en":  String.fromCodePoint(0x2822),
-    "ing": String.fromCodePoint(0x282c),
-    "ar":  String.fromCodePoint(0x281c),
-    "in":  String.fromCodePoint(0x2814),
-    "and": String.fromCodePoint(0x282f),
-    "for": String.fromCodePoint(0x283f),
-    "of":  String.fromCodePoint(0x2837),
-    "the": String.fromCodePoint(0x282e),
-    "with":String.fromCodePoint(0x283e),
-    "dis": String.fromCodePoint(0x2832),
-    "ff":  String.fromCodePoint(0x2816),
-    "ea":  String.fromCodePoint(0x2802),
-    "con": String.fromCodePoint(0x2812),
-    "cc":  String.fromCodePoint(0x2812),
-    "bb":  String.fromCodePoint(0x2806),
-    "be":  String.fromCodePoint(0x2806),
+    '!': '⠖',
+    '"': '⠈⠦',
+    '#': '⠼',
+    '$': '⠈⠲',
+    '%': '⠈⠒⠏',
+    '&': '⠈⠯',
+    "'": '⠈⠄',
+    '(': '⠐⠣',
+    ')': '⠐⠜',
+    '*': '⠐⠔',
+    '+': '⠈⠬',
+    ',': '⠈⠂',
+    '-': '⠤',
+    '.': '⠈⠲',
+    '/': '⠸⠌',
+    '0': '⠼⠚',
+    '1': '⠼⠁',
+    '2': '⠼⠃',
+    '3': '⠼⠉',
+    '4': '⠼⠙',
+    '5': '⠼⠑',
+    '6': '⠼⠋',
+    '7': '⠼⠛',
+    '8': '⠼⠓',
+    '9': '⠼⠊',
+    ':': '⠈⠒',
+    ';': '⠈⠆',
+    '<': '⠂⠅',
+    '=': '⠨⠅',
+    '>': '⠨⠂',
+    '?': '⠈⠦',
+    '@': '⠈⠁',
+    'A': '⠠⠁',
+    'B': '⠠⠃',
+    'C': '⠠⠉',
+    'D': '⠠⠙',
+    'E': '⠠⠑',
+    'F': '⠠⠋',
+    'G': '⠠⠛',
+    'H': '⠠⠓',
+    'I': '⠠⠊',
+    'J': '⠠⠚',
+    'K': '⠠⠅',
+    'L': '⠠⠇',
+    'M': '⠠⠍',
+    'N': '⠠⠝',
+    'O': '⠠⠕',
+    'P': '⠠⠏',
+    'Q': '⠠⠟',
+    'R': '⠠⠗',
+    'S': '⠠⠎',
+    'T': '⠠⠞',
+    'U': '⠠⠥',
+    'V': '⠠⠧',
+    'W': '⠠⠺',
+    'X': '⠠⠭',
+    'Y': '⠠⠽',
+    'Z': '⠠⠵',
+    '[': '⠈⠠⠶',
+    '\\': '⠈⠳',
+    ']': '⠈⠶⠠',
+    '^': '⠸⠣',
+    '_': '⠸',
+    '`': '⠈',
+    'a': '⠁',
+    'b': '⠃',
+    'c': '⠉',
+    'd': '⠙',
+    'e': '⠑',
+    'f': '⠋',
+    'g': '⠛',
+    'h': '⠓',
+    'i': '⠊',
+    'j': '⠚',
+    'k': '⠅',
+    'l': '⠇',
+    'm': '⠍',
+    'n': '⠝',
+    'o': '⠕',
+    'p': '⠏',
+    'q': '⠟',
+    'r': '⠗',
+    's': '⠎',
+    't': '⠞',
+    'u': '⠥',
+    'v': '⠧',
+    'w': '⠺',
+    'x': '⠭',
+    'y': '⠽',
+    'z': '⠵',
+    '{': '⠸⠣',
+    '|': '⠸⠳',
+    '}': '⠸⠜',
+    '~': '⠈⠱',
+    "gg": '⠶',
+    "st": '⠌',
+    "ch": '⠡',
+    "gh": '⠣',
+    "sh": '⠩',
+    "th": '⠹',
+    "wh": '⠱',
+    "ed": '⠫',
+    "er": '⠻',
+    "ou": '⠳',
+    "ow": '⠪',
+    "en": '⠢',
+    "ing": '⠬',
+    "ar": '⠜',
+    "in": '⠔',
+    "and": '⠯',
+    "for": '⠿',
+    "of": '⠷',
+    "the": '⠮',
+    "with": '⠾',
+    "dis": '⠲',
+    "ff": '⠖',
+    "ea": '⠂',
+    "con": '⠒',
+    "cc": '⠒',
+    "bb": '⠆',
+    "be": '⠆',
 };
 
 function braillize(text) {
