@@ -3,10 +3,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="popup.js"></script>
-    <title>Braille Converter Popup</title>
+    <title>Braille Web Translator Popup</title>
+    <style>
+      body {
+        width: 256px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background-color: rgb(87, 87, 87);
+        color: rgb(226, 226, 226);
+        padding: 0;
+        margin: 0;
+      }
+      h1 {
+        font-size: 1.5em;
+        margin: 0;
+        text-align: center;
+      }
+      header {
+        background-color: rgb(27, 27, 27);
+        padding: 0.5em;
+        width: 100%;
+        top: 0;
+      }
+      #toggle {
+        margin-top: 2em;
+        cursor: hand;
+        margin-bottom: 0.7em;
+      }
+      #logo {
+        height: 1.4em;
+        float: left;
+      }
+    </style>
   </head>
   <body>
-    <h1>Braille Converter</h1>
+    <header>
+      <img src="res/BrailleWebLogo.png" alt="Logo" id="logo">
+      <h1>Braille Web Translator</h1>
+    </header>
     <img src="res/toggle_off.png" alt="Toggle" id="toggle">
   </body>
 </html>
