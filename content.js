@@ -1,126 +1,4 @@
-const brailleMap = {
-    '!': '⠖',
-    '"': '⠈⠦',
-    '#': '⠼',
-    '$': '⠈⠲',
-    '%': '⠈⠒⠏',
-    '&': '⠈⠯',
-    "'": '⠈⠄',
-    '(': '⠐⠣',
-    ')': '⠐⠜',
-    '*': '⠐⠔',
-    '+': '⠈⠬',
-    ',': '⠈⠂',
-    '-': '⠤',
-    '.': '⠈⠲',
-    '/': '⠸⠌',
-    '0': '⠼⠚',
-    '1': '⠼⠁',
-    '2': '⠼⠃',
-    '3': '⠼⠉',
-    '4': '⠼⠙',
-    '5': '⠼⠑',
-    '6': '⠼⠋',
-    '7': '⠼⠛',
-    '8': '⠼⠓',
-    '9': '⠼⠊',
-    ':': '⠈⠒',
-    ';': '⠈⠆',
-    '<': '⠂⠅',
-    '=': '⠨⠅',
-    '>': '⠨⠂',
-    '?': '⠈⠦',
-    '@': '⠈⠁',
-    'A': '⠠⠁',
-    'B': '⠠⠃',
-    'C': '⠠⠉',
-    'D': '⠠⠙',
-    'E': '⠠⠑',
-    'F': '⠠⠋',
-    'G': '⠠⠛',
-    'H': '⠠⠓',
-    'I': '⠠⠊',
-    'J': '⠠⠚',
-    'K': '⠠⠅',
-    'L': '⠠⠇',
-    'M': '⠠⠍',
-    'N': '⠠⠝',
-    'O': '⠠⠕',
-    'P': '⠠⠏',
-    'Q': '⠠⠟',
-    'R': '⠠⠗',
-    'S': '⠠⠎',
-    'T': '⠠⠞',
-    'U': '⠠⠥',
-    'V': '⠠⠧',
-    'W': '⠠⠺',
-    'X': '⠠⠭',
-    'Y': '⠠⠽',
-    'Z': '⠠⠵',
-    '[': '⠈⠠⠶',
-    '\\': '⠈⠳',
-    ']': '⠈⠶⠠',
-    '^': '⠸⠣',
-    '_': '⠸',
-    '`': '⠈',
-    'a': '⠁',
-    'b': '⠃',
-    'c': '⠉',
-    'd': '⠙',
-    'e': '⠑',
-    'f': '⠋',
-    'g': '⠛',
-    'h': '⠓',
-    'i': '⠊',
-    'j': '⠚',
-    'k': '⠅',
-    'l': '⠇',
-    'm': '⠍',
-    'n': '⠝',
-    'o': '⠕',
-    'p': '⠏',
-    'q': '⠟',
-    'r': '⠗',
-    's': '⠎',
-    't': '⠞',
-    'u': '⠥',
-    'v': '⠧',
-    'w': '⠺',
-    'x': '⠭',
-    'y': '⠽',
-    'z': '⠵',
-    '{': '⠸⠣',
-    '|': '⠸⠳',
-    '}': '⠸⠜',
-    '~': '⠈⠱',
-    "gg": '⠶',
-    "st": '⠌',
-    "ch": '⠡',
-    "gh": '⠣',
-    "sh": '⠩',
-    "th": '⠹',
-    "wh": '⠱',
-    "ed": '⠫',
-    "er": '⠻',
-    "ou": '⠳',
-    "ow": '⠪',
-    "en": '⠢',
-    "ing": '⠬',
-    "ar": '⠜',
-    "in": '⠔',
-    "and": '⠯',
-    "for": '⠿',
-    "of": '⠷',
-    "the": '⠮',
-    "with": '⠾',
-    "dis": '⠲',
-    "ff": '⠖',
-    "ea": '⠂',
-    "con": '⠒',
-    "cc": '⠒',
-    "bb": '⠆',
-    "be": '⠆',
-};
+let brailleMap = {};
 
 function braillize(text) {
     let lines = text.split('\n');
@@ -199,9 +77,16 @@ function braillizeNode(node) {
     }
 }
 
-chrome.runtime.sendMessage({ action: 'getToggleState' }, (toggleState) => {
-    if (toggleState) {
-        console.log("Braillizing");
-        braillizeNode(document.body);
-    }
-});
+const bmURL = chrome.runtime.getURL('brailleMap.json');
+fetch(bmURL)
+    .then(response => response.json())
+    .then(brailleMapData => {
+        brailleMap = brailleMapData;
+
+        chrome.runtime.sendMessage({ action: 'getToggleState' }, (toggleState) => {
+            if (toggleState) {
+                console.log("Braillizing");
+                braillizeNode(document.body);
+            }
+        });
+    });
