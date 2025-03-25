@@ -13,39 +13,129 @@ function braillizeLine(line) {
     return braillizedWords.join('⠀ ');
 }
 
+const commonContractions = ["d", "ll", "re", "s", "t", "ve"];
+const lowerPunctuation = [];
 function braillizeWord(word) {
     if (word.length == 0) return "";
-    if (word.length == 1) return braillizeChar(word);
-
     let braille = "";
 
     if (isUpperAlpha(word)) {
-        braille += String.fromCodePoint(0x2820);
-        braille += String.fromCodePoint(0x2820);
+        braille += "⠠⠠";
         word = word.toLowerCase();
     }
 
+    let standingAloneWord = brailleMap['onlyWhenStandingAlone'][word];
+    if (standingAloneWord != undefined) {
+        braille += standingAloneWord;
+        return braille;
+    }
+
+    let contraction = word.split("'");
+    if (contraction.length == 2) {
+        if (commonContractions.includes(contraction[1])) {
+            let standingWithContraction = brailleMap['onlyWhenStandingAlone']['orHasCommonContraction'][contraction[0]];
+            if (standingWithContraction != undefined) {
+                braille += standingWithContraction + "⠄";
+                braille += BraillizeNonContraction(contraction[1]);
+                return braille;
+            }
+        }
+    }
+
+    braille += BraillizeNonContraction(word);
+    return braille;
+}
+
+function BraillizeNonContraction(word) {
+    if (word.length == 0) return "";
+    let braille = "";
+    let chunkInfo = {position : "beginning", standingAlone: true, afterO: false, afterA: false};
+
     while (word.length > 0) {
         if (isUpperAlpha(word)) {
-            braille += String.fromCodePoint(0x2820);
+            braille += "⠠";
             word = word.toLowerCase();
         }
 
-        let possibleCombo = word.slice(0, 3);
+        let possibleCombo = word.slice(0, 9);
         while (true) {
-            if (brailleMap[possibleCombo]) {
-                braille += brailleMap[possibleCombo];
+            let braillized = BraillizeChunk(possibleCombo, chunkInfo);
+            chunkInfo.standingAlone = false;
+            console.log("Possible Combo: " + possibleCombo + "    Braillized Combo: " + braillized);
+            if (braillized != undefined) {
+                chunkInfo.position = "surrounded";
+                braille += braillized;
+                
+                chunkInfo.afterA = word[possibleCombo.length - 1] == 'a' || word[possibleCombo.length - 1] == 'A';
+                chunkInfo.afterO = word[possibleCombo.length - 1] == 'o' || word[possibleCombo.length - 1] == 'O';
                 word = word.slice(possibleCombo.length);
-                break;
-            }
-            else if (possibleCombo.length <= 0) {
-                braille += word[0];
-                word = word.slice(1);
+                if (possibleCombo.length <= 0) {
+                    braille += word[0];
+                    chunkInfo.afterA = false;
+                    chunkInfo.afterO = false;
+                    word = word.slice(1);
+                }
                 break;
             }
             possibleCombo = possibleCombo.slice(0, -1);
         }
     }
+    return braille;
+}
+
+function BraillizeChunk(chunk, chunkInfo) {
+    if (chunk.length == 0) return "";
+    let braille = "";
+
+    let allButFirst = chunk.slice(1);
+    if (isUpperAlpha(chunk[0]) && (allButFirst.length == 0 || isLowerAlpha(allButFirst))) {
+        braille += "⠠";
+        chunk = chunk.toLowerCase();
+    }
+
+    if (chunkInfo.standingAlone) {
+        let standingAloneChunk = brailleMap['onlyWhenStandingAlone'][chunk];
+        if (standingAloneChunk != undefined) {
+            braille += standingAloneChunk;
+            return braille;
+        }
+    }
+    else {
+        if (brailleMap['exceptWhenStandingAlone'][chunk] != undefined) {
+            braille += brailleMap['exceptWhenStandingAlone'][chunk];
+            return braille;
+        }
+    }
+
+    if (chunkInfo.position === "beginning") {
+        if (brailleMap['onlyAtBeginning'][chunk] != undefined){
+            braille += brailleMap['onlyAtBeginning'][chunk];
+            return braille;
+        }
+    }
+    else {
+        if (chunkInfo.position === "surrounded" && brailleMap['whenSurrounded'][chunk] != undefined) {
+            braille += brailleMap['whenSurrounded'][chunk];
+            return braille;
+        }
+        if (brailleMap['exceptAtBeginning'][chunk] != undefined) {
+            braille += brailleMap['exceptAtBeginning'][chunk];
+            return braille;
+        }
+    }
+    
+    if ((chunkInfo.afterA || chunkInfo.afterO) && brailleMap['exceptAfterAorO'][chunk] != undefined) {
+        braille += brailleMap['exceptAfterAorO'][chunk];
+        return braille;
+    }
+    if (chunkInfo.afterO && brailleMap['exceptAfterO'][chunk] != undefined) {
+        braille += brailleMap['exceptAfterO'][chunk];
+        return braille;
+    }
+
+    if (brailleMap[chunk] == undefined) return undefined;
+
+    braille += brailleMap[chunk];
     return braille;
 }
 
@@ -63,6 +153,10 @@ function braillizeChar(char) {
 
 function isUpperAlpha(string) {
     return string == string.toUpperCase() && string != string.toLowerCase();
+}
+
+function isLowerAlpha(string) {
+    return string == string.toLowerCase() && string != string.toUpperCase();
 }
 
 function braillizeNode(node) {

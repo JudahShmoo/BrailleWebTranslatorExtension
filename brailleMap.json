@@ -277,10 +277,10 @@
 		"ff": "⠖",
 		"gg": "⠶"
 	},
-	"exceptPreO": {
+	"exceptAfterO": {
 		"one": "⠐⠕"
 	},
-	"exceptPreAorO": {
+	"exceptAfterAorO": {
 		"under": "⠐⠥"
 	}
 }
