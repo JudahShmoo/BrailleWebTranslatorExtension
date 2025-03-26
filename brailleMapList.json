@@ -1,4 +1,4 @@
-const brailleMap = [
+[
 	[ "(?<=(?:^| |-)[([{'\"]*)(?<=⠠?)conceiving(?=[,;:.!?)\\]}'\"]*(?:$| |-))", "⠒⠉⠧⠛" ],
 	[ "(?<=(?:^| |-)[([{'\"]*)(?<=⠠?)themselves(?=[,;:.!?)\\]}'\"]*(?:$| |-))", "⠮⠍⠧⠎" ],
 	[ "(?<=(?:^| |-)[([{'\"]*)(?<=⠠?)yourselves(?=[,;:.!?)\\]}'\"]*(?:$| |-))", "⠽⠗⠧⠎" ],
@@ -248,37 +248,4 @@ const brailleMap = [
 	[ "2", "⠼⠃" ],
 	[ "1", "⠼⠁" ],
 	[ "0", "⠼⠚" ]
-];
-
-function braillize(text) {
-    let braillized = capitalize(text);
-    for (const element of brailleMap) {
-        const regex = new RegExp(element[0], 'gm');
-        braillized = braillized.replace(regex, element[1]);
-    }
-    return braillized.replace(/(?<=\S) /gm, `⠀ `);
-}
-
-function capitalize(text) {
-    text = text.replace(/\b[A-Z]{2,}\b/gm, (match) => `⠠⠠${match.toLowerCase()}`);
-    return text.replace(/[A-Z]/gm, `⠠$&`).toLowerCase();
-}
-
-function braillizeNode(node) {
-    if (node.nodeType == Node.TEXT_NODE) {
-        let text = node.nodeValue;
-        let braille = braillize(text);
-        node.nodeValue = braille;
-    }
-    else if (node.nodeType == Node.ELEMENT_NODE) {
-        if (node.tagName == 'SCRIPT' || node.tagName == 'STYLE') return;
-        node.childNodes.forEach((child) => braillizeNode(child));
-    }
-}
-
-chrome.runtime.sendMessage({ action: 'getToggleState' }, (toggleState) => {
-    if (toggleState) {
-        console.log("Braillizing");
-        braillizeNode(document.body);
-    }
-});
+]

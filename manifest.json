@@ -24,10 +24,6 @@
         "js": ["content.js"]
       }
     ],
-    "web_accessible_resources": [{
-      "matches": ["<all_urls>"],
-      "resources": ["brailleMap.json"]
-    }],
     "background": {
       "service_worker": "background.js"
     }
